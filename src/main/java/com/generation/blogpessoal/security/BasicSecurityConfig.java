@@ -32,13 +32,13 @@ public class BasicSecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         
-        AuthenticationManagerBuilder authenticationManagerBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
+       AuthenticationManagerBuilder authenticationManagerBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
        
-        authenticationManagerBuilder.userDetailsService(userDetailsService);
+       authenticationManagerBuilder.userDetailsService(userDetailsService);
        
-        authenticationManagerBuilder.inMemoryAuthentication().withUser("root").password(passwordEncoder().encode("root")).roles("USER");
+       authenticationManagerBuilder.inMemoryAuthentication().withUser("root").password(passwordEncoder().encode("root")).roles("USER");
        
-        authenticationManager = authenticationManagerBuilder.build();
+       authenticationManager = authenticationManagerBuilder.build();
 
         http
                 .authenticationManager(authenticationManager)
