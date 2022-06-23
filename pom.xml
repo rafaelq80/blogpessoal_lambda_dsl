@@ -37,7 +37,7 @@
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
 
-		<!-- Dependência para Codificação do Token -->
+		<!-- Dependência para Codificação do Basic Token -->
 		<dependency>
 			<groupId>commons-codec</groupId>
 			<artifactId>commons-codec</artifactId>
@@ -65,9 +65,9 @@
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
-		</dependency> 
-		
-		<!-- Dependência Springdocs -->
+		</dependency>
+
+		<!-- Dependência Springdoc -->
 		<dependency>
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-ui</artifactId>
