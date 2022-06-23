@@ -4,18 +4,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Optional;
 
-import com.generation.blogpessoal.model.Usuario;
-import com.generation.blogpessoal.model.UsuarioLogin;
-import com.generation.blogpessoal.repository.UsuarioRepository;
-import com.generation.blogpessoal.service.UsuarioService;
-
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
-import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
@@ -24,15 +16,21 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.ActiveProfiles;
 
+import com.generation.blogpessoal.model.Usuario;
+import com.generation.blogpessoal.model.UsuarioLogin;
+import com.generation.blogpessoal.repository.UsuarioRepository;
+import com.generation.blogpessoal.service.UsuarioService;
+
+// Remover test order
+// Adicionar Active profiles
+
+@ActiveProfiles("test")
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class UsuarioControllerTest {
 
-	/**
-	 * Injeta um objeto da Classe TestRestTemplate, responsável por fazer requisições HTTP (semelhante ao Postman)
-	 */
 	@Autowired
 	private TestRestTemplate testRestTemplate;
 
@@ -45,19 +43,15 @@ public class UsuarioControllerTest {
 	@BeforeAll
 	void start(){
 
-		/**
-		 * Apaga todos os registros do banco de dados antes de iniciar os testes
-		 */
-
 		usuarioRepository.deleteAll();
 
+		// Cria usuário de testes
 		usuarioService.cadastrarUsuario(new Usuario(0L, 
-			"Administrador", "root@root.com", "rootroot", " "));
+			"Root", "root@root.com", "rootroot", " "));
 
 	}
 
 	@Test
-	@Order(1)
 	@DisplayName("Cadastrar Um Usuário")
 	public void deveCriarUmUsuario() {
 
@@ -74,7 +68,6 @@ public class UsuarioControllerTest {
 	}
 
 	@Test
-	@Order(2)
 	@DisplayName("Não deve permitir duplicação do Usuário")
 	public void naoDeveDuplicarUsuario() {
 
@@ -91,7 +84,6 @@ public class UsuarioControllerTest {
 	}
 
 	@Test
-	@Order(3)
 	@DisplayName("Atualizar um Usuário")
 	public void deveAtualizarUmUsuario() {
 
@@ -113,7 +105,6 @@ public class UsuarioControllerTest {
 	}
 
 	@Test
-	@Order(4)
 	@DisplayName("Listar todos os Usuários")
 	public void deveMostrarTodosUsuarios() {
 
@@ -124,7 +115,7 @@ public class UsuarioControllerTest {
 			"Ricardo Marques", "ricardo_marques@email.com.br", "ricardo123", "https://i.imgur.com/Sk5SjWE.jpg"));
 
 		ResponseEntity<String> resposta = testRestTemplate
-			.withBasicAuth("root@root.com", "rootroot")
+		.withBasicAuth("root@root.com", "rootroot")
 			.exchange("/usuarios/all", HttpMethod.GET, null, String.class);
 
 		assertEquals(HttpStatus.OK, resposta.getStatusCode());
@@ -132,7 +123,6 @@ public class UsuarioControllerTest {
 	}
 
 	@Test
-	@Order(5)
 	@DisplayName("Listar Um Usuário Específico")
 	public void deveListarApenasUmUsuario() {
 		
@@ -148,7 +138,6 @@ public class UsuarioControllerTest {
 	}
 
 	@Test
-	@Order(6)
 	@DisplayName("Login do Usuário")
 	public void deveAutenticarUsuario() {
 
