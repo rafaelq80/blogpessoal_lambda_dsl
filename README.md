@@ -1,5 +1,4 @@
-# Projeto Blog Pessoal com Lambda DSL - (Em desenvolvimento)
-
+# Projeto Blog Pessoal com Lambda DSL
 <br />
 
 <div align="center">
